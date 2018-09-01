@@ -1,0 +1,57 @@
+{
+    "name": "contaoblackforest/contao-calendar-tags-bundle",
+    "description": "Contao Calendar Tags Bundle",
+    "keywords": [
+        "contao",
+        "bundle",
+        "calendar",
+        "events",
+        "filter",
+        "tags"
+    ],
+    "type": "contao-bundle",
+    "homepage": "https://github.com/contaoblackforest/contao-calendar-tags-bundle",
+    "license": "LGPL-3.0-or-later",
+    "authors": [
+        {
+            "name": "Sven Baumann",
+            "email": "baumann.sv@gmail.com",
+            "homepage": "https://github.com/baumannsven",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "email": "baumann.sv@gmail.com",
+        "issues": "https://github.com/contaoblackforest/contao-calendar-tags-bundle/issues",
+        "wiki": "https://github.com/contaoblackforest/contao-calendar-tags-bundle/wiki",
+        "irc": "irc://irc.freenode.org/contao.mm",
+        "source": "https://github.com/contaoblackforest/contao-calendar-tags-bundle"
+    },
+    "require": {
+        "php": "^5.6 || ^7.0",
+        "contao/core-bundle": "^4.4",
+        "contao/calendar-bundle": "^4.4",
+        "symfony/dependency-injection": "^3.3 || ^4.0",
+        "symfony/http-kernel": "^3.3 || ^4.0"
+    },
+    "require-dev": {
+        "phpcq/all-tasks": "^1.2",
+        "contao/manager-plugin": "^2.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "BlackForest\\Contao\\Calendar\\Tags\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "BlackForest\\Contao\\Calendar\\Tags\\Test\\": "tests/Test"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev",
+            "dev-develop": "1.1.x-dev"
+        }
+    }
+}
