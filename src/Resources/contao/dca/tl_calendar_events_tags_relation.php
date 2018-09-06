@@ -36,14 +36,22 @@ $GLOBALS['TL_DCA']['tl_calendar_events_tags_relation'] = [
 
     'list' => [
         'sorting' => [
-            'mode'                => 1,
-            'fields'              => [''],
+            'mode'                => 2,
+            'fields'              => ['tag', 'calendar', 'calendarEvents'],
             'flag'                => 1,
-            'panelLayout'         => 'filter;search,limit'
+            'panelLayout'         => 'sort;filter;search,limit'
         ],
         'label' => [
-            'fields'              => ['calendar.title', 'calendarEvents', 'tag'],
-            'format'              => '%s'
+            'fields'              => [
+                'calendar:tl_calendar.title',
+                'calendarEvents:tl_calendar_events.title',
+                'tag:tl_calendar_events_tags.title'
+            ],
+            // @codingStandardsIgnoreStart
+            'format'              => $GLOBALS['TL_LANG']['tl_calendar_events_tags_relation']['calendar'][0] . ': %s<br>' .
+                                     $GLOBALS['TL_LANG']['tl_calendar_events_tags_relation']['calendarEvents'][0] . ': %s<br>' .
+                                     $GLOBALS['TL_LANG']['tl_calendar_events_tags_relation']['tag'][0] . ': %s<br>'
+            // @codingStandardsIgnoreEnd
         ],
         'global_operations' => [
             'all' => [
@@ -96,6 +104,8 @@ $GLOBALS['TL_DCA']['tl_calendar_events_tags_relation'] = [
         'calendar' => [
             'label'            => &$GLOBALS['TL_LANG']['tl_calendar_events_tags_relation']['calendar'],
             'exclude'          => true,
+            'sorting'          => true,
+            'filter'           => true,
             'search'           => true,
             'inputType'        => 'select',
             'options_callback' => ['cb.table_calendar_events_tags_relation.calendar_options', 'handle'],
@@ -111,6 +121,8 @@ $GLOBALS['TL_DCA']['tl_calendar_events_tags_relation'] = [
         'calendarEvents' => [
             'label'            => &$GLOBALS['TL_LANG']['tl_calendar_events_tags_relation']['calendarEvents'],
             'exclude'          => true,
+            'sorting'          => true,
+            'filter'           => true,
             'search'           => true,
             'inputType'        => 'select',
             'options_callback' => ['cb.table_calendar_events_tags_relation.calendar_events_options', 'handle'],
@@ -126,6 +138,8 @@ $GLOBALS['TL_DCA']['tl_calendar_events_tags_relation'] = [
         'tag' => [
             'label'            => &$GLOBALS['TL_LANG']['tl_calendar_events_tags_relation']['tag'],
             'exclude'          => true,
+            'sorting'          => true,
+            'filter'           => true,
             'search'           => true,
             'inputType'        => 'select',
             'options_callback' => ['cb.table_calendar_events_tags_relation.tag_options', 'handle'],

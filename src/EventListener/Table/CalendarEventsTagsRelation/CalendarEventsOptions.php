@@ -21,6 +21,7 @@ namespace BlackForest\Contao\Calendar\Tags\EventListener\Table\CalendarEventsTag
 
 use Contao\DataContainer;
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Query\QueryBuilder;
 
 /**
  * This class handle the calendar events options.
@@ -53,17 +54,17 @@ class CalendarEventsOptions
      */
     public function handle(DataContainer $container)
     {
-        if (!$container->activeRecord->archive) {
-            return [];
-        }
-
         $queryBuilder = $this->connection->createQueryBuilder();
         $queryBuilder
             ->select('e.id, e.title')
-            ->from('tl_calendar_events', 'n')
-            ->where($queryBuilder->expr()->eq('e.pid', ':pid'))
-            ->setParameter(':pid', $container->activeRecord->archive)
+            ->from('tl_calendar_events', 'e')
             ->orderBy('e.title');
+
+        $this->addFilterForEditAction($queryBuilder, $container);
+
+        if ($container->activeRecord->id && !$container->activeRecord->calendar) {
+            return [];
+        }
 
         $statement = $queryBuilder->execute();
         if (!$statement->rowCount()) {
@@ -76,5 +77,24 @@ class CalendarEventsOptions
         }
 
         return $options;
+    }
+
+    /**
+     * Add the filter if edit the model.
+     *
+     * @param QueryBuilder  $queryBuilder The query builder.
+     * @param DataContainer $container    The data container.
+     *
+     * @return void
+     */
+    private function addFilterForEditAction(QueryBuilder $queryBuilder, DataContainer $container)
+    {
+        if (!$container->activeRecord->id && !$container->activeRecord->calendar) {
+            return;
+        }
+
+        $queryBuilder
+            ->where($queryBuilder->expr()->eq('e.pid', ':pid'))
+            ->setParameter(':pid', $container->activeRecord->calendar);
     }
 }

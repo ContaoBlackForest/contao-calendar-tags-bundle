@@ -21,6 +21,7 @@ namespace BlackForest\Contao\Calendar\Tags\EventListener\Table\CalendarEventsTag
 
 use Contao\DataContainer;
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\Query\QueryBuilder;
 
 /**
  * This class handle the tag options.
@@ -53,17 +54,20 @@ class TagOptions
      */
     public function handle(DataContainer $container)
     {
-        if (!$container->activeRecord->calendar || !$container->activeRecord->calendarEvents) {
-            return [];
-        }
-
         $queryBuilder = $this->connection->createQueryBuilder();
         $queryBuilder
             ->select('t.id, t.title')
             ->from('tl_calendar_events_tags', 't')
-            ->where($queryBuilder->expr()->like('t.calendar', ':calendar'))
-            ->setParameter(':calendar', '%"' . $container->activeRecord->calendar . '"%')
             ->orderBy('t.title');
+
+        $this->addFilterForEditAction($queryBuilder, $container);
+
+        if ($container->activeRecord->id
+            && (!$container->activeRecord->calendar
+                || !$container->activeRecord->calendarEvents)
+        ) {
+            return [];
+        }
 
         $statement = $queryBuilder->execute();
         if (!$statement->rowCount()) {
@@ -76,5 +80,27 @@ class TagOptions
         }
 
         return $options;
+    }
+
+    /**
+     * Add the filter if edit the model.
+     *
+     * @param QueryBuilder  $queryBuilder The query builder.
+     * @param DataContainer $container    The data container.
+     *
+     * @return void
+     */
+    private function addFilterForEditAction(QueryBuilder $queryBuilder, DataContainer $container)
+    {
+        if (!$container->activeRecord->id
+            && !$container->activeRecord->calendar
+            && !$container->activeRecord->calendarEvents
+        ) {
+            return;
+        }
+
+        $queryBuilder
+            ->where($queryBuilder->expr()->like('t.calendar', ':calendar'))
+            ->setParameter(':calendar', '%"' . $container->activeRecord->calendar . '"%');
     }
 }
