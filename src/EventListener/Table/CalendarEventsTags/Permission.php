@@ -199,7 +199,7 @@ class Permission
     {
         return \sprintf(
             '<a href="%s" class="%s" title="%s"%s>%s</a>',
-            $this->controller->addToUrl($href),
+            $this->controller->addToUrl($href . '&amp;rt=' . $this->token->getValue()),
             $class,
             $this->stringUtil->specialchars($title),
             $attributes,
@@ -223,7 +223,7 @@ class Permission
     {
         return \sprintf(
             '<a href="%s" title="%s"%s>%s</a>',
-            $this->controller->addToUrl($href . '&amp;id=' . $row['id']),
+            $this->controller->addToUrl($href . '&amp;id=' . $row['id'] . '&amp;rt=' . $this->token->getValue()),
             $this->stringUtil->specialchars($title),
             $attributes,
             $this->image->getHtml($icon, $label)
