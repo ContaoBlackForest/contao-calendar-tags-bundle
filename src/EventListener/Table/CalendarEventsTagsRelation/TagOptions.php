@@ -74,8 +74,16 @@ class TagOptions
             return [];
         }
 
+        $match = $this->matchEventsRelation($container);
+
         $options = [];
         foreach ($statement->fetchAll(\PDO::FETCH_OBJ) as $tag) {
+            if (\in_array($tag->id, $match)
+                && ((int) $tag->id !== (int) $container->activeRecord->tag)
+            ) {
+                continue;
+            }
+
             $options[$tag->id] = $tag->title;
         }
 
@@ -101,6 +109,44 @@ class TagOptions
 
         $queryBuilder
             ->where($queryBuilder->expr()->like('t.calendar', ':calendar'))
-            ->setParameter(':calendar', '%"' . $container->activeRecord->calendar . '"%');
+            ->orWhere($queryBuilder->expr()->eq('t.id', ':activeTag'))
+            ->setParameter(':calendar', '%"' . $container->activeRecord->calendar . '"%')
+            ->setParameter(':activeTag', $container->activeRecord->tag);
+    }
+
+    /**
+     * Match calendar events relation.
+     *
+     * @param DataContainer $container The data container.
+     *
+     * @return array
+     */
+    private function matchEventsRelation(DataContainer $container)
+    {
+        if (!$container->activeRecord->id
+            && !$container->activeRecord->calendar
+            && !$container->activeRecord->calendarEvents
+        ) {
+            return [];
+        }
+
+        $queryBuilder = $this->connection->createQueryBuilder();
+        $queryBuilder
+            ->select('r.*')
+            ->from('tl_calendar_events_tags_relation', 'r')
+            ->where($queryBuilder->expr()->eq('r.calendarEvents', ':calendarEventsId'))
+            ->setParameter(':calendarEventsId', $container->activeRecord->calendarEvents);
+
+        $statement = $queryBuilder->execute();
+        if (!$statement->rowCount()) {
+            return [];
+        }
+
+        $match = [];
+        foreach ($statement->fetchAll(\PDO::FETCH_OBJ) as $relation) {
+            $match[] = $relation->tag;
+        }
+
+        return $match;
     }
 }

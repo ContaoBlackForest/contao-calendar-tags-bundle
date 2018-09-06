@@ -147,7 +147,8 @@ $GLOBALS['TL_DCA']['tl_calendar_events_tags_relation'] = [
                 'multiple'           => false,
                 'chosen'             => true,
                 'mandatory'          => true,
-                'includeBlankOption' => true
+                'includeBlankOption' => true,
+                'doNotCopy'          => true
             ],
             'sql'              => "int(10) unsigned NOT NULL default '0'"
         ]
