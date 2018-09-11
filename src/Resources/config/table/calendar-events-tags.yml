@@ -54,3 +54,10 @@ services:
         arguments:
             - "@database_connection"
             - "@=service('contao.framework').getAdapter('Contao\\\\Input')"
+
+    cb.table_calendar_events_tags.format_model_label:
+        class: BlackForest\Contao\Calendar\Tags\EventListener\Table\CalendarEventsTags\FormatModelLabel
+        public: true
+        arguments:
+            - "@database_connection"
+            - "@=service('contao.framework').getAdapter('Contao\\\\Input')"

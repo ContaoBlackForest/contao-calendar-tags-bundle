@@ -47,16 +47,14 @@ $GLOBALS['TL_DCA']['tl_calendar_events_tags'] = [
 
     'list' => [
         'sorting' => [
-            // Can i remove the back button with an other mode? This idea is for the popup.
             'mode'                => 1,
             'fields'              => ['title'],
             'flag'                => 1,
-            // For popup remove this.
             'panelLayout'         => 'filter;search,limit'
         ],
         'label' => [
             'fields'              => ['title'],
-            'format'              => '%s'
+            'label_callback'      => ['cb.table_calendar_events_tags.format_model_label', 'handle']
         ],
         'global_operations' => [
             'relations'     => [
