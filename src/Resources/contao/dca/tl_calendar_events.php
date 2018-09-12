@@ -18,6 +18,16 @@
  */
 
 /*
+ * Add callbacks.
+ */
+
+$GLOBALS['TL_DCA']['tl_calendar_events']['config']['ondelete_callback'][] =
+    ['cb.table_calendar_events.delete', 'handle'];
+$GLOBALS['TL_DCA']['tl_calendar_events']['config']['oncut_callback'][]    =
+    ['cb.table_calendar_events.move', 'handle'];
+
+
+/*
  * Add model operation button.
  */
 

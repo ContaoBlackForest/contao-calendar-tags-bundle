@@ -18,6 +18,12 @@
  */
 
 /*
+ * Add callbacks.
+ */
+
+$GLOBALS['TL_DCA']['tl_calendar']['config']['ondelete_callback'][] = ['cb.table_calendar.delete', 'handle'];
+
+/*
  * Add global operation button.
  */
 

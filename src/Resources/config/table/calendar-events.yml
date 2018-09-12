@@ -11,3 +11,16 @@ services:
             - "@=service('contao.framework').getAdapter('Contao\\\\StringUtil')"
             - "@security.csrf.token_manager"
             - "%contao.csrf_token_name%"
+
+    cb.table_calendar_events.delete:
+        class: BlackForest\Contao\Calendar\Tags\EventListener\Table\CalendarEvents\Delete
+        public: true
+        arguments:
+            - "@database_connection"
+
+    cb.table_calendar_events.move:
+        class: BlackForest\Contao\Calendar\Tags\EventListener\Table\CalendarEvents\Move
+        public: true
+        arguments:
+            - "@database_connection"
+            - "@=service('contao.framework').getAdapter('Contao\\\\Input')"
