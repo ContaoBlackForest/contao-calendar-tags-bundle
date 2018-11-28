@@ -21,10 +21,10 @@ namespace BlackForest\Contao\Calendar\Tags\Test\ContaoManager;
 
 use BlackForest\Contao\Calendar\Tags\BlackForestContaoCalendarTagsBundle;
 use BlackForest\Contao\Calendar\Tags\ContaoManager\Plugin;
+use Contao\CalendarBundle\ContaoCalendarBundle;
 use Contao\CoreBundle\ContaoCoreBundle;
 use Contao\ManagerPlugin\Bundle\Config\BundleConfig;
 use Contao\ManagerPlugin\Bundle\Parser\ParserInterface;
-use Contao\NewsBundle\ContaoNewsBundle;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -46,7 +46,7 @@ class PluginTest extends TestCase
             ->setLoadAfter(
                 [
                     ContaoCoreBundle::class,
-                    ContaoNewsBundle::class
+                    ContaoCalendarBundle::class
                 ]
             );
 
