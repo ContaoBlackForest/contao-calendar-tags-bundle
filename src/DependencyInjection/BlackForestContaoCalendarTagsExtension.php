@@ -35,6 +35,8 @@ class BlackForestContaoCalendarTagsExtension extends Extension
     public function load(array $configs, ContainerBuilder $container)
     {
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+        $loader->load('module/calendar-events-detail.yml');
+        $loader->load('module/calendar-events-list.yml');
         $loader->load('table/calendar-events.yml');
         $loader->load('table/calendar.yml');
         $loader->load('table/calendar-events-tags.yml');

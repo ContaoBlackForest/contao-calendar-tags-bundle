@@ -1,0 +1,10 @@
+services:
+    cb.module_calendar_tags_events_detail.add_filter_menu:
+        class: BlackForest\Contao\Calendar\Tags\EventListener\Module\DetailView\AddFilterMenu
+        public: true
+        arguments:
+            - "@request_stack"
+            - "@database_connection"
+            - "@contao.session.contao_frontend"
+            - "@=service('contao.framework').getAdapter('Contao\\\\Input')"
+            - "%contao.url_suffix%"

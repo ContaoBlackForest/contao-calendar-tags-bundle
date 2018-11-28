@@ -21,10 +21,12 @@
  * Fields.
  */
 
-$GLOBALS['TL_LANG']['tl_calendar_events_tags']['title']    = ['Title', 'Please enter the tag title'];
-$GLOBALS['TL_LANG']['tl_calendar_events_tags']['alias']    = ['Alias', 'The alias for this tag. The alias is generated automatically if you do not enter anything.'];
-$GLOBALS['TL_LANG']['tl_calendar_events_tags']['calendar'] = ['Calendar', 'Here you can determine in which calendar this tag should be available.'];
-$GLOBALS['TL_LANG']['tl_calendar_events_tags']['note']     = ['Note', 'Here can you enter a note.'];
+$GLOBALS['TL_LANG']['tl_calendar_events_tags']['title']           = ['Title', 'Please enter the tag title'];
+$GLOBALS['TL_LANG']['tl_calendar_events_tags']['alias']           = ['Alias', 'The alias for this tag. The alias is generated automatically if you do not enter anything.'];
+$GLOBALS['TL_LANG']['tl_calendar_events_tags']['calendar']        = ['Calendar', 'Here you can determine in which calendar this tag should be available.'];
+$GLOBALS['TL_LANG']['tl_calendar_events_tags']['tagLink']         = ['Activate link', 'Here you can activate the tag in the tag list as a link for the detail page.'];
+$GLOBALS['TL_LANG']['tl_calendar_events_tags']['tagLinkFallback'] = ['Fallback page', 'Here you can select the fallback page. If the list page of the events was not found automatically, then the fallback page is used.'];
+$GLOBALS['TL_LANG']['tl_calendar_events_tags']['note']            = ['Note', 'Here can you enter a note.'];
 
 /*
  * Legends.

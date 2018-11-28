@@ -1,0 +1,29 @@
+services:
+    cb.module_calendar_tags_events_list.prepare_tag_collection:
+        class: BlackForest\Contao\Calendar\Tags\EventListener\Module\ListView\PrepareTagCollection
+        public: true
+        arguments:
+            - "@request_stack"
+            - "@database_connection"
+            - "@contao.session.contao_frontend"
+            - "@=service('contao.framework').getAdapter('Contao\\\\Input')"
+
+    cb.module_calendar_tags_events_list.add_filter_menu:
+        class: BlackForest\Contao\Calendar\Tags\EventListener\Module\ListView\AddFilterMenu
+        public: true
+        arguments:
+            - "@request_stack"
+            - "@contao.session.contao_frontend"
+            - "@=service('contao.framework').getAdapter('Contao\\\\Input')"
+            - "%contao.url_suffix%"
+
+    cb.module_calendar_tags_events_list.item_filter:
+        class: BlackForest\Contao\Calendar\Tags\EventListener\Module\ListView\ItemFilter
+        public: true
+        arguments:
+            - "@request_stack"
+            - "@contao.session.contao_frontend"
+            - "@database_connection"
+            - "@=service('contao.framework').getAdapter('Contao\\\\Controller')"
+            - "@=service('contao.framework').getAdapter('Contao\\\\Input')"
+            - "%contao.url_suffix%"

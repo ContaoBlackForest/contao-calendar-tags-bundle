@@ -27,6 +27,15 @@ $GLOBALS['BE_MOD']['content']['calendar']['tables'] = array_merge(
 );
 
 /*
+ * Hooks.
+ */
+
+$GLOBALS['TL_HOOKS']['getAllEvents'][]  = ['cb.module_calendar_tags_events_list.prepare_tag_collection', 'prepare'];
+$GLOBALS['TL_HOOKS']['parseTemplate'][] = ['cb.module_calendar_tags_events_list.add_filter_menu', 'handle'];
+$GLOBALS['TL_HOOKS']['getAllEvents'][]  = ['cb.module_calendar_tags_events_list.item_filter', 'prepare'];
+$GLOBALS['TL_HOOKS']['parseTemplate'][] = ['cb.module_calendar_tags_events_detail.add_filter_menu', 'handle'];
+
+/*
  * Add permissions.
  */
 

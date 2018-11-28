@@ -105,7 +105,12 @@ $GLOBALS['TL_DCA']['tl_calendar_events_tags'] = [
     ],
 
     'palettes' => [
-        'default' => '{title_legend},title,alias;{calendar_legend},calendar;{note_legend:hide},note'
+        '__selector__' => ['tagLink'],
+        'default'      => '{title_legend},title,alias;{calendar_legend},calendar,tagLink;{note_legend:hide},note'
+    ],
+
+    'subpalettes' => [
+        'tagLink'      => 'tagLinkFallback'
     ],
 
     'fields' => [
@@ -142,6 +147,22 @@ $GLOBALS['TL_DCA']['tl_calendar_events_tags'] = [
             'options_callback' => ['cb.table_calendar_events_tags.calendar_options', 'handle'],
             'eval'             => ['multiple' => true, 'mandatory' => true],
             'sql'              => 'blob NULL'
+        ],
+        'tagLink' => [
+            'label'            => &$GLOBALS['TL_LANG']['tl_calendar_events_tags']['tagLink'],
+            'exclude'          => true,
+            'inputType'        => 'checkbox',
+            'eval'             => ['submitOnChange' => true, 'tl_class' => 'w50'],
+            'sql'              => "char(1) NOT NULL default ''"
+        ],
+        'tagLinkFallback' => [
+            'label'            => &$GLOBALS['TL_LANG']['tl_calendar_events_tags']['tagLinkFallback'],
+            'exclude'          => true,
+            'inputType'        => 'pageTree',
+            'foreignKey'       => 'tl_page.title',
+            'eval'             => ['fieldType' => 'radio', 'tl_class' => 'w50 clr'],
+            'sql'              => "int(10) unsigned NOT NULL default '0'",
+            'relation'         => ['mandatory' => true, 'type' => 'hasOne', 'load' => 'lazy']
         ],
         'note' => [
             'label'            => &$GLOBALS['TL_LANG']['tl_calendar_events_tags']['note'],
