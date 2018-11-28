@@ -31,3 +31,24 @@ services:
         public: true
         arguments:
             - "@database_connection"
+
+    cb.table_calendar_events_tags.modal_select_button:
+        class: BlackForest\Contao\Calendar\Tags\EventListener\Table\CalendarEventsTags\ModalSelectButton
+        public: true
+        arguments:
+            - "@=service('contao.framework').getAdapter('Contao\\\\Input')"
+            - "@=service('contao.framework').getAdapter('Contao\\\\StringUtil')"
+
+    cb.table_calendar_events_tags.manipulate_calendar_events_modal_view:
+        class: BlackForest\Contao\Calendar\Tags\EventListener\Table\CalendarEventsTags\ManipulateEventsModalView
+        public: true
+        arguments:
+            - "@database_connection"
+            - "@=service('contao.framework').getAdapter('Contao\\\\Input')"
+
+    cb.table_calendar_events_tags.apply_relations_calendar_events_modal_view:
+        class: BlackForest\Contao\Calendar\Tags\EventListener\Table\CalendarEventsTags\ApplyRelationsEventsModalView
+        public: true
+        arguments:
+            - "@database_connection"
+            - "@=service('contao.framework').getAdapter('Contao\\\\Input')"

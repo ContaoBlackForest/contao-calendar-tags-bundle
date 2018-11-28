@@ -19,11 +19,19 @@
 
 $GLOBALS['TL_DCA']['tl_calendar_events_tags'] = [
 
+    'select' => [
+        'buttons_callback' => [
+            ['cb.table_calendar_events_tags.modal_select_button', 'handle']
+        ]
+    ],
+
     'config' => [
         'dataContainer'               => 'Table',
         'enableVersioning'            => true,
         'onload_callback'             => [
-            ['cb.table_calendar_events_tags.permission', 'handlePermission']
+            ['cb.table_calendar_events_tags.permission', 'handlePermission'],
+            ['cb.table_calendar_events_tags.apply_relations_calendar_events_modal_view', 'handle'],
+            ['cb.table_calendar_events_tags.manipulate_calendar_events_modal_view', 'handle']
         ],
         'ondelete_callback'           => [
             ['cb.table_calendar_events_tags.delete', 'handle']
@@ -39,9 +47,11 @@ $GLOBALS['TL_DCA']['tl_calendar_events_tags'] = [
 
     'list' => [
         'sorting' => [
+            // Can i remove the back button with an other mode? This idea is for the popup.
             'mode'                => 1,
             'fields'              => ['title'],
             'flag'                => 1,
+            // For popup remove this.
             'panelLayout'         => 'filter;search,limit'
         ],
         'label' => [
@@ -58,7 +68,7 @@ $GLOBALS['TL_DCA']['tl_calendar_events_tags'] = [
                     'style="background-image: url(' . \Contao\Image::getPath('sizes.svg') . ');"',
                     'onclick="Backend.getScrollOffset()"'
                 ),
-                'button_callback' => ['cb.table_news_tags.permission', 'handleGlobalTagsCommand']
+                'button_callback' => ['cb.table_calendar_events_tags.permission', 'handleGlobalTagsCommand']
             ],
             'all' => [
                 'label'           => &$GLOBALS['TL_LANG']['MSC']['all'],
