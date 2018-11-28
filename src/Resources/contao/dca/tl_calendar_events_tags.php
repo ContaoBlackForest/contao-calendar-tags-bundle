@@ -25,6 +25,9 @@ $GLOBALS['TL_DCA']['tl_calendar_events_tags'] = [
         'onload_callback'             => [
             ['cb.table_calendar_events_tags.permission', 'handlePermission']
         ],
+        'ondelete_callback'           => [
+            ['cb.table_calendar_events_tags.delete', 'handle']
+        ],
         'sql' => [
             'keys' => [
                 'id'    => 'primary',
@@ -46,6 +49,17 @@ $GLOBALS['TL_DCA']['tl_calendar_events_tags'] = [
             'format'              => '%s'
         ],
         'global_operations' => [
+            'relations'     => [
+                'label'           => &$GLOBALS['TL_LANG']['tl_calendar_events_tags']['relations'],
+                'href'            => 'table=tl_calendar_events_tags_relation',
+                'class'           => 'header_icon',
+                'attributes'      => sprintf(
+                    '%s %s',
+                    'style="background-image: url(' . \Contao\Image::getPath('sizes.svg') . ');"',
+                    'onclick="Backend.getScrollOffset()"'
+                ),
+                'button_callback' => ['cb.table_news_tags.permission', 'handleGlobalTagsCommand']
+            ],
             'all' => [
                 'label'           => &$GLOBALS['TL_LANG']['MSC']['all'],
                 'href'            => 'act=select',

@@ -17,7 +17,7 @@ services:
         arguments:
             - "@contao.framework"
             - "@request_stack"
-            - "@=service('contao.framework').getAdapter('Contao\\\\NewsArchiveModel')"
+            - "@=service('contao.framework').getAdapter('Contao\\\\CalendarModel')"
 
     cb.table_calendar_events_tags.alias_generator:
         class: BlackForest\Contao\Calendar\Tags\EventListener\Table\CalendarEventsTags\AliasGenerator
@@ -25,3 +25,9 @@ services:
         arguments:
             - "@database_connection"
             - "@=service('contao.framework').getAdapter('Contao\\\\StringUtil')"
+
+    cb.table_calendar_events_tags.delete:
+        class: BlackForest\Contao\Calendar\Tags\EventListener\Table\CalendarEventsTags\Delete
+        public: true
+        arguments:
+            - "@database_connection"

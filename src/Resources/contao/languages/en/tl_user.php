@@ -21,4 +21,5 @@
  * Permissions.
  */
 
-$GLOBALS['TL_LANG']['tl_user']['calendareventstagsp'] = ['Tag permissions', 'Here you can define the calender events tags permissions.'];
+$GLOBALS['TL_LANG']['tl_user']['calendareventstagsp']         = ['Tag permissions', 'Here you can define the calender events tags permissions.'];
+$GLOBALS['TL_LANG']['tl_user']['calendareventstagsrelationp'] = ['Tag relation permissions', 'Here you can define the calendar events tags relations permissions.'];

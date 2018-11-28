@@ -22,7 +22,11 @@
  */
 
 Contao\CoreBundle\DataContainer\PaletteManipulator::create()
-    ->addField(['calendareventstagsp'], 'calendars_legend', Contao\CoreBundle\DataContainer\PaletteManipulator::POSITION_APPEND)
+    ->addField(
+        ['calendareventstagsp', 'calendareventstagsrelationp'],
+        'calendars_legend',
+        Contao\CoreBundle\DataContainer\PaletteManipulator::POSITION_APPEND
+    )
     ->applyToPalette('extend', 'tl_user')
     ->applyToPalette('custom', 'tl_user');
 
@@ -30,8 +34,17 @@ Contao\CoreBundle\DataContainer\PaletteManipulator::create()
  * Add fields to tl_user_group
  */
 
-$GLOBALS['TL_DCA']['tl_user']['fields']['calendareventstagsp'] = [
+$GLOBALS['TL_DCA']['tl_user']['fields']['calendareventstagsp']         = [
     'label'     => &$GLOBALS['TL_LANG']['tl_user']['calendareventstagsp'],
+    'exclude'   => true,
+    'inputType' => 'checkbox',
+    'options'   => ['create', 'delete'],
+    'reference' => &$GLOBALS['TL_LANG']['MSC'],
+    'eval'      => ['multiple' => true],
+    'sql'       => 'blob NULL'
+];
+$GLOBALS['TL_DCA']['tl_user']['fields']['calendareventstagsrelationp'] = [
+    'label'     => &$GLOBALS['TL_LANG']['tl_user']['calendareventstagsrelationp'],
     'exclude'   => true,
     'inputType' => 'checkbox',
     'options'   => ['create', 'delete'],

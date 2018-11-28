@@ -17,4 +17,5 @@
  * @filesource
  */
 
-$GLOBALS['TL_LANG']['MOD']['tl_calendar_events_tags'] = 'Auszeichnungen';
+$GLOBALS['TL_LANG']['MOD']['tl_calendar_events_tags']          = 'Auszeichnungen';
+$GLOBALS['TL_LANG']['MOD']['tl_calendar_events_tags_relation'] = 'Verbindungen';

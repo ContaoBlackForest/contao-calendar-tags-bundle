@@ -17,20 +17,21 @@
  * @filesource
  */
 
-namespace BlackForest\Contao\Calendar\Tags\EventListener\Table\CalendarEventsTags;
+namespace BlackForest\Contao\Calendar\Tags\EventListener\Table\CalendarEventsTagsRelation;
 
 use BlackForest\Contao\Calendar\Tags\EventListener\Table\CalendarEventsTagsTrait;
 use Contao\CoreBundle\Exception\AccessDeniedException;
+use Contao\Input;
 
 /**
- * This class provide the permission handling for the table calendar events tags.
+ * This class provide the permission handling for table calendar events tags relation.
  */
 class Permission
 {
     use CalendarEventsTagsTrait;
 
     /**
-     * Check permission to add tags.
+     * Check permission to add relation for tags.
      *
      * @return void
      *
@@ -38,11 +39,11 @@ class Permission
      */
     protected function checkPermissionToAdd()
     {
-        if ($this->user->hasAccess('create', 'calendareventstagsp')) {
+        if ($this->user->hasAccess('create', 'calendareventstagsrelationp')) {
             return;
         }
 
-        $GLOBALS['TL_DCA']['tl_calendar_events_tags']['config']['closed'] = true;
+        $GLOBALS['TL_DCA']['tl_calendar_events_tags_relation']['config']['closed'] = true;
     }
 
     /**
@@ -60,16 +61,16 @@ class Permission
             return;
         }
 
-        if ((!$this->user->hasAccess('delete', 'calendareventstagsp')
+        if ((!$this->user->hasAccess('delete', 'calendareventstagsrelationp')
              && 'delete' === $this->input->get('act'))
             || !\in_array(
                 $this->input->get('id'),
-                $GLOBALS['TL_DCA']['tl_calendar_events_tags']['list']['sorting']['root']
+                $GLOBALS['TL_DCA']['tl_calendar_events_tags_relation']['list']['sorting']['root']
             )
         ) {
             throw new AccessDeniedException(
                 \sprintf(
-                    'Not enough permissions to %s calendar event tags ID %s.',
+                    'Not enough permissions to %s news feed ID %s.',
                     $this->input->get('act'),
                     $this->input->get('id')
                 )
@@ -91,12 +92,13 @@ class Permission
         }
 
         $session = $this->session->all();
-        if (!$this->user->hasAccess('delete', 'calendareventstagsp') && $this->input->get('act') == 'deleteAll') {
+        if (!$this->user->hasAccess('delete', 'calendareventstagsrelationp')
+            && ($this->input->get('act') == 'deleteAll')) {
             $session['CURRENT']['IDS'] = array();
         } else {
             $session['CURRENT']['IDS'] = \array_intersect(
                 (array) $session['CURRENT']['IDS'],
-                $GLOBALS['TL_DCA']['tl_calendar_events_tags']['list']['sorting']['root']
+                $GLOBALS['TL_DCA']['tl_calendar_events_tags_relation']['list']['sorting']['root']
             );
         }
 
@@ -112,10 +114,10 @@ class Permission
      */
     protected function prepareDefaultPermission()
     {
-        if (\strlen($this->input->get('act'))) {
+        if (\strlen(Input::get('act'))) {
             throw new AccessDeniedException(
                 \sprintf(
-                    'Not enough permissions to %s calendar events tags.',
+                    'Not enough permissions to %s news feeds.',
                     $this->input->get('act')
                 )
             );
@@ -136,7 +138,7 @@ class Permission
      */
     public function handleButtonCanEdit(array $row, $href, $label, $title, $icon, $attributes)
     {
-        return $this->user->canEditFieldsOf('tl_calendar_events_tags')
+        return $this->user->canEditFieldsOf('tl_calendar_events_tags_relation')
             ?
             $this->renderModelButton($row, $href, $label, $title, $icon, $attributes)
             :
@@ -157,54 +159,11 @@ class Permission
      */
     public function handleButtonCanDelete(array $row, $href, $label, $title, $icon, $attributes)
     {
-        return $this->user->hasAccess('delete', 'calendareventstagsp')
+        return $this->user->hasAccess('delete', 'calendareventstagsrelationp')
             ?
             $this->renderModelButton($row, $href, $label, $title, $icon, $attributes)
             :
             $this->image->getHtml(\preg_replace('/\.svg$/i', '_.svg', $icon)) . ' ';
-    }
-
-    /**
-     * Handle the permission of the global tags command.
-     *
-     * @param string $href       The href.
-     * @param string $label      The label.
-     * @param string $title      The title.
-     * @param string $class      The icon.
-     * @param string $attributes The attributes.
-     *
-     * @return string
-     */
-    public function handleGlobalTagsCommand($href, $label, $title, $class, $attributes)
-    {
-        return ($this->user->isAdmin || $this->user->hasAccess('create', 'calendareventstagsp'))
-            ?
-            $this->renderGlobalButton($href, $label, $title, $class, $attributes)
-            :
-            '';
-    }
-
-    /**
-     * Render the global command button.
-     *
-     * @param string $href       The href.
-     * @param string $label      The label.
-     * @param string $title      The title.
-     * @param string $class      The class.
-     * @param string $attributes The attributes.
-     *
-     * @return string
-     */
-    private function renderGlobalButton($href, $label, $title, $class, $attributes)
-    {
-        return \sprintf(
-            '<a href="%s" class="%s" title="%s"%s>%s</a>',
-            $this->controller->addToUrl($href),
-            $class,
-            $this->stringUtil->specialchars($title),
-            $attributes,
-            $label
-        );
     }
 
     /**

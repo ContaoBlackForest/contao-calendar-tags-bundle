@@ -38,7 +38,8 @@ $GLOBALS['TL_LANG']['tl_calendar_events_tags']['note_legend']     = 'Notiz';
  * Global operations.
  */
 
-$GLOBALS['TL_LANG']['tl_news_tags']['new'] = ['Hinzufügen', 'Neue Auszeichnung hinzufügen'];
+$GLOBALS['TL_LANG']['tl_calendar_events_tags']['new']       = ['Hinzufügen', 'Neue Auszeichnung hinzufügen'];
+$GLOBALS['TL_LANG']['tl_calendar_events_tags']['relations'] = ['Eventverbindung', 'Neue Eventverbindung hinzufügen'];
 
 /*
  * Modal operations.

@@ -68,7 +68,7 @@ class CalendarOptions
     }
 
     /**
-     * Handle the archives options.
+     * Handle the calendars options.
      *
      * @return array
      */
@@ -77,7 +77,7 @@ class CalendarOptions
         if ($this->user->isAdmin) {
             $calendar = $this->repository->findAll();
         } else {
-            $calendar = $this->repository->findMultipleByIds($this->user->news);
+            $calendar = $this->repository->findMultipleByIds($this->user->calendars);
         }
 
         $return = [];

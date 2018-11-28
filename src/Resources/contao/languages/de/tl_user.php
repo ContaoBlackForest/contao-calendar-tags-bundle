@@ -21,4 +21,5 @@
  * Permissions.
  */
 
-$GLOBALS['TL_LANG']['tl_user']['calendareventstagsp'] = ['Auszeichnungsrechte', 'Hier können Sie die Auszeichnungsrechte festlegen.'];
+$GLOBALS['TL_LANG']['tl_user']['calendareventstagsp']         = ['Auszeichnungsrechte', 'Hier können Sie die Auszeichnungsrechte festlegen.'];
+$GLOBALS['TL_LANG']['tl_user']['calendareventstagsrelationp'] = ['Verbindungsrechte', 'Hier können Sie die Verbindungsrechte der Events festlegen.'];

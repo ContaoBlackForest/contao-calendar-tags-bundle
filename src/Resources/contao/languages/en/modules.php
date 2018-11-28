@@ -17,4 +17,5 @@
  * @filesource
  */
 
-$GLOBALS['TL_LANG']['MOD']['tl_calendar_events_tags'] = 'Tags';
+$GLOBALS['TL_LANG']['MOD']['tl_calendar_events_tags']          = 'Tags';
+$GLOBALS['TL_LANG']['MOD']['tl_calendar_events_tags_relation'] = 'Tags relation';

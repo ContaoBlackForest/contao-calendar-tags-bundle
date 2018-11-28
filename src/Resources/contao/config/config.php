@@ -23,7 +23,7 @@
 
 $GLOBALS['BE_MOD']['content']['calendar']['tables'] = array_merge(
     $GLOBALS['BE_MOD']['content']['calendar']['tables'],
-    ['tl_calendar_events_tags']
+    ['tl_calendar_events_tags', 'tl_calendar_events_tags_relation']
 );
 
 /*
@@ -31,3 +31,4 @@ $GLOBALS['BE_MOD']['content']['calendar']['tables'] = array_merge(
  */
 
 $GLOBALS['TL_PERMISSIONS'][] = 'calendareventstagsp';
+$GLOBALS['TL_PERMISSIONS'][] = 'calendareventstagsrelationp';
