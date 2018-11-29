@@ -22,6 +22,7 @@ namespace BlackForest\Contao\Calendar\Tags\EventListener\Table\CalendarEventsTag
 use Contao\CoreBundle\Framework\Adapter;
 use Contao\Input;
 use Doctrine\DBAL\Connection;
+use Symfony\Component\Translation\TranslatorInterface;
 
 /**
  * This handle the formatting of the model label.
@@ -43,15 +44,24 @@ class FormatModelLabel
     private $connection;
 
     /**
+     * The translator.
+     *
+     * @var TranslatorInterface
+     */
+    private $translator;
+
+    /**
      * The constructor.
      *
-     * @param Connection $connection The database connection.
-     * @param Adapter    $input      The input.
+     * @param Connection          $connection The database connection.
+     * @param TranslatorInterface $translator The translator.
+     * @param Adapter             $input      The input.
      */
-    public function __construct(Connection $connection, Adapter $input)
+    public function __construct(Connection $connection, TranslatorInterface $translator, Adapter $input)
     {
         $this->connection = $connection;
         $this->input      = $input;
+        $this->translator = $translator;
     }
 
     /**
@@ -67,14 +77,14 @@ class FormatModelLabel
             return $row['title'];
         }
 
-        $label  = '<p>' . $GLOBALS['TL_LANG']['MOD']['tl_calendar_events_tags'] . ': ';
+        $label  = '<p>' . $this->trans('MOD.tl_calendar_events_tags', 'default') . ': ';
         $label .= '<br>&nbsp;&nbsp;' . $row['title'] . '</p>';
 
         $calendarNames = $this->fetchCalendarNames($row['calendar']);
 
-        $label .= '<p style="margin-bottom: 0;">' . $GLOBALS['TL_LANG']['tl_calendar_events_tags']['calendar'][0] . ': ';
+        $label .= '<p style="margin-bottom: 0;">' . $this->trans('tl_calendar_events_tags.calendar.0') . ': ';
         if (!\count($calendarNames)) {
-            $label .= '<br>&nbsp;' . $GLOBALS['TL_LANG']['MSC']['noResult'];
+            $label .= '<br>&nbsp;' . $this->trans('MSC.noResult', 'default');
         }
         if (\count($calendarNames)) {
             $label .= '<ul>';
@@ -89,7 +99,7 @@ class FormatModelLabel
 
         if ($row['tagLink'] && $row['tagLinkFallback']) {
             $page   = $this->fetchPageById($row['tagLinkFallback']);
-            $label .= '<p>' . $GLOBALS['TL_LANG']['tl_calendar_events_tags']['tagLinkFallback'][0] . ': ';
+            $label .= '<p>' . $this->trans('tl_calendar_events_tags.tagLinkFallback.0') . ': ';
             $label .= '<br>&nbsp;&nbsp;' . $page->title . '</p>';
         }
 
@@ -155,5 +165,18 @@ class FormatModelLabel
         }
 
         return $statement->fetch(\PDO::FETCH_OBJ);
+    }
+
+    /**
+     * Translate the identifier.
+     *
+     * @param string $identifier The translation identifier.
+     * @param string $domain     The translation domain.
+     *
+     * @return string
+     */
+    private function trans($identifier, $domain = 'tl_calendar_events_tags')
+    {
+        return $this->translator->trans($identifier, [], 'contao_' . $domain);
     }
 }

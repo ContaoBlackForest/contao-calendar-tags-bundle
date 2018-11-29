@@ -31,6 +31,7 @@
         "php": "^5.6 || ^7.0",
         "contao/core-bundle": "^4.4",
         "contao/calendar-bundle": "^4.4",
+        "contao-community-alliance/translator": "^2.1",
         "symfony/dependency-injection": "^3.3 || ^4.0",
         "symfony/http-kernel": "^3.3 || ^4.0",
         "ext-pdo": "*"

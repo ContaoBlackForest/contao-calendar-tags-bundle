@@ -60,4 +60,5 @@ services:
         public: true
         arguments:
             - "@database_connection"
+            - "@translator"
             - "@=service('contao.framework').getAdapter('Contao\\\\Input')"
