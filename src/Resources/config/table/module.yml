@@ -1,0 +1,7 @@
+services:
+    cb.table_module_calendar_tags.pre_filter_options:
+        class: BlackForest\Contao\Calendar\Tags\EventListener\Table\Module\PreFilterOptions
+        public: true
+        arguments:
+        - "@database_connection"
+        - "@translator"

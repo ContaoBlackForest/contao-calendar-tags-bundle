@@ -21,5 +21,6 @@
  * Fields.
  */
 
-$GLOBALS['TL_LANG']['tl_module']['calendarEventsTagsFilter'] = ['Auszeichnungen filtern', 'Hier können Sie den Filter für die Auszeichnungen aktivieren. Wenn der Filter aktiviert ist, kann man die Events nach den Auszeichnungen filtern.'];
-$GLOBALS['TL_LANG']['tl_module']['calendarEventsTagsShow']   = ['Auszeichnungen anzeigen', 'Hier können Sie die Option aktvieren, damit die Auszeichnungen auf der Detailseite mit ausgeben werden.'];
+$GLOBALS['TL_LANG']['tl_module']['calendarEventsTagsFilter']    = ['Auszeichnungen filtern', 'Hier können Sie den Filter für die Auszeichnungen aktivieren. Wenn der Filter aktiviert ist, kann man die Events nach den Auszeichnungen filtern.'];
+$GLOBALS['TL_LANG']['tl_module']['calendarEventsTagsPreFilter'] = ['Auszeichnungen vorfiltern', 'Hier kann ausgewählt werden, mit welchen Auszeichnungen die Liste vorab gefiltert wird.'];
+$GLOBALS['TL_LANG']['tl_module']['calendarEventsTagsShow']      = ['Auszeichnungen anzeigen', 'Hier können Sie die Option aktvieren, damit die Auszeichnungen auf der Detailseite mit ausgeben werden.'];

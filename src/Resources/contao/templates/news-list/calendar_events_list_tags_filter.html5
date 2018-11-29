@@ -4,7 +4,7 @@
     <ul>
         <?php if ($this->active): ?>
             <li class="events_tags_filter_reset">
-                <a href="<?= $this->pathInfo ?><?= $this->urlSuffix?>" title="<?= $GLOBALS['TL_LANG']['FMD']['calendarEventsTagsFilter']['clearFilter'] ?>"><?= $GLOBALS['TL_LANG']['FMD']['calendarEventsTagsFilter']['clearFilter'] ?></a>
+                <a href="<?= $this->pathInfo ?>/filterTag/all<?= $this->urlSuffix?>" title="<?= $GLOBALS['TL_LANG']['FMD']['calendarEventsTagsFilter']['clearFilter'] ?>"><?= $GLOBALS['TL_LANG']['FMD']['calendarEventsTagsFilter']['clearFilter'] ?></a>
             </li>
         <?php endif; ?>
         <?php foreach ($this->tags as $tag): ?>

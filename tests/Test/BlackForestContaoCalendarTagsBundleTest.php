@@ -65,6 +65,7 @@ class BlackForestContaoCalendarTagsBundleTest extends TestCase
         $this->assertInstanceOf(FileResource::class, $container->getResources()[5]);
         $this->assertInstanceOf(FileResource::class, $container->getResources()[6]);
         $this->assertInstanceOf(FileResource::class, $container->getResources()[7]);
+        $this->assertInstanceOf(FileResource::class, $container->getResources()[8]);
         $this->assertSame(
             \dirname(\dirname(__DIR__)) . '/src/Resources/config/module/calendar-events-detail.yml',
             $container->getResources()[1]->getResource()
@@ -74,24 +75,28 @@ class BlackForestContaoCalendarTagsBundleTest extends TestCase
             $container->getResources()[2]->getResource()
         );
         $this->assertSame(
-            \dirname(\dirname(__DIR__)) . '/src/Resources/config/table/calendar-events.yml',
+            \dirname(\dirname(__DIR__)) . '/src/Resources/config/table/module.yml',
             $container->getResources()[3]->getResource()
         );
         $this->assertSame(
-            \dirname(\dirname(__DIR__)) . '/src/Resources/config/table/calendar.yml',
+            \dirname(\dirname(__DIR__)) . '/src/Resources/config/table/calendar-events.yml',
             $container->getResources()[4]->getResource()
         );
         $this->assertSame(
-            \dirname(\dirname(__DIR__)) . '/src/Resources/config/table/calendar-events-tags.yml',
+            \dirname(\dirname(__DIR__)) . '/src/Resources/config/table/calendar.yml',
             $container->getResources()[5]->getResource()
         );
         $this->assertSame(
-            \dirname(\dirname(__DIR__)) . '/src/Resources/config/table/calendar-events-tags-relation.yml',
+            \dirname(\dirname(__DIR__)) . '/src/Resources/config/table/calendar-events-tags.yml',
             $container->getResources()[6]->getResource()
         );
         $this->assertSame(
-            \dirname(\dirname(__DIR__)) . '/src/Resources/config/services.yml',
+            \dirname(\dirname(__DIR__)) . '/src/Resources/config/table/calendar-events-tags-relation.yml',
             $container->getResources()[7]->getResource()
+        );
+        $this->assertSame(
+            \dirname(\dirname(__DIR__)) . '/src/Resources/config/services.yml',
+            $container->getResources()[8]->getResource()
         );
     }
 }

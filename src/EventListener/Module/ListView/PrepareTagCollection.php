@@ -104,7 +104,7 @@ class PrepareTagCollection
     {
         if (!('contao_frontend' === $this->requestStack->getCurrentRequest()->get('_route'))
             || !('eventlist' === $events->type)
-            || !$events->calendarEventsTagsFilter
+            || (!$events->calendarEventsTagsPreFilter && !$events->calendarEventsTagsFilter)
         ) {
             return $eventList;
         }

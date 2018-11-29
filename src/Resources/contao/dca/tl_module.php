@@ -23,7 +23,7 @@
 
 Contao\CoreBundle\DataContainer\PaletteManipulator::create()
     ->addField(
-        ['calendarEventsTagsFilter'],
+        ['calendarEventsTagsFilter, calendarEventsTagsPreFilter'],
         'config_legend',
         Contao\CoreBundle\DataContainer\PaletteManipulator::POSITION_APPEND
     )
@@ -47,8 +47,17 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['calendarEventsTagsFilter'] = [
     'filter'    => true,
     'flag'      => 1,
     'inputType' => 'checkbox',
-    'eval'      => ['doNotCopy' => true, 'tl_class' => 'w50 clr m12'],
+    'eval'      => ['doNotCopy' => true, 'tl_class' => 'w50 clr'],
     'sql'       => "char(1) NOT NULL default ''"
+];
+
+$GLOBALS['TL_DCA']['tl_module']['fields']['calendarEventsTagsPreFilter'] = [
+    'label'            => &$GLOBALS['TL_LANG']['tl_module']['calendarEventsTagsPreFilter'],
+    'exclude'          => true,
+    'inputType'        => 'select',
+    'options_callback' => ['cb.table_module_calendar_tags.pre_filter_options', 'handleOptions'],
+    'eval'             => ['includeBlankOption' => true, 'tl_class' => 'w50 clr'],
+    'sql'              => 'text NULL'
 ];
 
 $GLOBALS['TL_DCA']['tl_module']['fields']['calendarEventsTagsShow'] = [
@@ -60,3 +69,5 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['calendarEventsTagsShow'] = [
     'eval'      => ['doNotCopy' => true, 'tl_class' => 'w50 clr m12'],
     'sql'       => "char(1) NOT NULL default ''"
 ];
+
+$GLOBALS['TL_DCA']['tl_module']['fields']['cal_calendar']['eval']['submitOnChange'] = true;

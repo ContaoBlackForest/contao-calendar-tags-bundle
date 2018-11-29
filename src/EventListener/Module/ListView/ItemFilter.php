@@ -125,8 +125,8 @@ class ItemFilter
     {
         if (!('contao_frontend' === $this->requestStack->getCurrentRequest()->get('_route'))
             || !('eventlist' === $events->type)
-            || !$events->calendarEventsTagsFilter
-            || !$this->input->get('filterTag')
+            || (!$events->calendarEventsTagsPreFilter && !$events->calendarEventsTagsFilter)
+            || (!$this->input->get('filterTag') && !$events->calendarEventsTagsPreFilter)
         ) {
             return $eventList;
         }
@@ -136,7 +136,7 @@ class ItemFilter
             $this->redirectWithoutFilter();
         }
 
-        $this->internalEventIds = $this->matchEventIdsByFilter();
+        $this->internalEventIds = $this->matchEventIdsByFilter($events->calendarEventsTagsPreFilter);
         if (!\count($this->internalEventIds)) {
             return $eventList;
         }
@@ -150,18 +150,28 @@ class ItemFilter
     /**
      * Match event identifier by filter.
      *
+     * @param string $preFilter The pre filter. Is used if no tag filtered.
+     *
      * @return array
      */
-    private function matchEventIdsByFilter()
+    private function matchEventIdsByFilter($preFilter)
     {
         $queryBuilder = $this->connection->createQueryBuilder();
         $queryBuilder
             ->select('e.id')
             ->from('tl_calendar_events', 'e')
             ->innerJoin('e', 'tl_calendar_events_tags_relation', 'r', 'e.id = r.calendarEvents')
-            ->innerJoin('r', 'tl_calendar_events_tags', 't', 'r.tag = t.id')
-            ->where($queryBuilder->expr()->eq('t.alias', ':alias'))
-            ->setParameter(':alias', $this->input->get('filterTag'));
+            ->innerJoin('r', 'tl_calendar_events_tags', 't', 'r.tag = t.id');
+
+        if ($this->input->get('filterTag')) {
+            $queryBuilder
+                ->where($queryBuilder->expr()->eq('t.alias', ':alias'))
+                ->setParameter(':alias', $this->input->get('filterTag'));
+        } elseif ('all' !== $this->input->get('filterTag')) {
+            $queryBuilder
+                ->where($queryBuilder->expr()->eq('t.id', ':preFilter'))
+                ->setParameter(':preFilter', $preFilter);
+        }
 
         $statement = $queryBuilder->execute();
         if (!$statement->rowCount()) {

@@ -115,7 +115,7 @@ class AddFilterMenu
             'urlSuffix' => $this->urlSuffix,
             'moduleId'  => $template->id,
             'tags'      => $tags,
-            'active'    => $this->input->get('filterTag')
+            'active'    => $this->determineActiveTag($tags, $template->calendarEventsTagsPreFilter)
         ];
 
         $filterTemplate = new FrontendTemplate('calendar_events_list_tags_filter');
@@ -124,6 +124,31 @@ class AddFilterMenu
         $template->events = $filterTemplate->parse(). PHP_EOL .  $template->events;
 
         $this->addListViewToSession($data['pathInfo']);
+    }
+
+    /**
+     * Determine the active tag.
+     *
+     * @param array  $tags          The tag list.
+     * @param string $tagIdentifier The tag identifier.
+     *
+     * @return string
+     */
+    private function determineActiveTag(array $tags, $tagIdentifier)
+    {
+        if ($this->input->get('filterTag')) {
+            return $this->input->get('filterTag');
+        } elseif ($tagIdentifier) {
+            foreach ($tags as $tag) {
+                if ((int) $tagIdentifier !== (int) $tag->id) {
+                    continue;
+                }
+
+                return $tag->alias;
+            }
+        }
+
+        return '';
     }
 
     /**

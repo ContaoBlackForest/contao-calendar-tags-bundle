@@ -21,5 +21,6 @@
  * Fields.
  */
 
-$GLOBALS['TL_LANG']['tl_module']['calendarEventsTagsFilter'] = ['Tags filter', 'Activate the tags filter. If this active you can filter the events by tags.'];
-$GLOBALS['TL_LANG']['tl_module']['calendarEventsTagsShow']   = ['Show tags', 'Here can you activate for display the tags by the detail page.'];
+$GLOBALS['TL_LANG']['tl_module']['calendarEventsTagsFilter']    = ['Tags filter', 'Activate the tags filter. If this active you can filter the events by tags.'];
+$GLOBALS['TL_LANG']['tl_module']['calendarEventsTagsPreFilter'] = ['Pre filter Tags', 'Here can select with which tags the list is pre filtered.'];
+$GLOBALS['TL_LANG']['tl_module']['calendarEventsTagsShow']      = ['Show tags', 'Here can you activate for display the tags by the detail page.'];
