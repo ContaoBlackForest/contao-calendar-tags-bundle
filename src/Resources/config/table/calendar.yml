@@ -1,0 +1,15 @@
+services:
+    cb.table_calendar.permission:
+        class: BlackForest\Contao\Calendar\Tags\EventListener\Table\Calendar\Permission
+        public: true
+        arguments:
+            - "@contao.framework"
+            - "@request_stack"
+            - "@=service('contao.framework').getAdapter('Contao\\\\StringUtil')"
+            - "@=service('contao.framework').getAdapter('Contao\\\\Controller')"
+
+    cb.table_calendar.delete:
+        class: BlackForest\Contao\Calendar\Tags\EventListener\Table\Calendar\Delete
+        public: true
+        arguments:
+            - "@database_connection"

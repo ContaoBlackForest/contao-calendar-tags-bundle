@@ -1,0 +1,64 @@
+services:
+    cb.table_calendar_events_tags.permission:
+        class: BlackForest\Contao\Calendar\Tags\EventListener\Table\CalendarEventsTags\Permission
+        public: true
+        arguments:
+            - "@contao.framework"
+            - "@request_stack"
+            - "@session"
+            - "@=service('contao.framework').getAdapter('Contao\\\\StringUtil')"
+            - "@=service('contao.framework').getAdapter('Contao\\\\Input')"
+            - "@=service('contao.framework').getAdapter('Contao\\\\Controller')"
+            - "@=service('contao.framework').getAdapter('Contao\\\\Image')"
+            - "@security.csrf.token_manager"
+            - "%contao.csrf_token_name%"
+
+    cb.table_calendar_events_tags.calendar_options:
+        class: BlackForest\Contao\Calendar\Tags\EventListener\Table\CalendarEventsTags\CalendarOptions
+        public: true
+        arguments:
+            - "@contao.framework"
+            - "@request_stack"
+            - "@=service('contao.framework').getAdapter('Contao\\\\CalendarModel')"
+
+    cb.table_calendar_events_tags.alias_generator:
+        class: BlackForest\Contao\Calendar\Tags\EventListener\Table\CalendarEventsTags\AliasGenerator
+        public: true
+        arguments:
+            - "@database_connection"
+            - "@=service('contao.framework').getAdapter('Contao\\\\StringUtil')"
+
+    cb.table_calendar_events_tags.delete:
+        class: BlackForest\Contao\Calendar\Tags\EventListener\Table\CalendarEventsTags\Delete
+        public: true
+        arguments:
+            - "@database_connection"
+
+    cb.table_calendar_events_tags.modal_select_button:
+        class: BlackForest\Contao\Calendar\Tags\EventListener\Table\CalendarEventsTags\ModalSelectButton
+        public: true
+        arguments:
+            - "@=service('contao.framework').getAdapter('Contao\\\\Input')"
+            - "@=service('contao.framework').getAdapter('Contao\\\\StringUtil')"
+
+    cb.table_calendar_events_tags.manipulate_calendar_events_modal_view:
+        class: BlackForest\Contao\Calendar\Tags\EventListener\Table\CalendarEventsTags\ManipulateEventsModalView
+        public: true
+        arguments:
+            - "@database_connection"
+            - "@=service('contao.framework').getAdapter('Contao\\\\Input')"
+
+    cb.table_calendar_events_tags.apply_relations_calendar_events_modal_view:
+        class: BlackForest\Contao\Calendar\Tags\EventListener\Table\CalendarEventsTags\ApplyRelationsEventsModalView
+        public: true
+        arguments:
+            - "@database_connection"
+            - "@=service('contao.framework').getAdapter('Contao\\\\Input')"
+
+    cb.table_calendar_events_tags.format_model_label:
+        class: BlackForest\Contao\Calendar\Tags\EventListener\Table\CalendarEventsTags\FormatModelLabel
+        public: true
+        arguments:
+            - "@database_connection"
+            - "@translator"
+            - "@=service('contao.framework').getAdapter('Contao\\\\Input')"
