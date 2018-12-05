@@ -138,7 +138,7 @@ class ItemFilter
 
         $this->internalEventIds = $this->matchEventIdsByFilter($events->calendarEventsTagsPreFilter);
         if (!\count($this->internalEventIds)) {
-            return $eventList;
+            return [];
         }
 
         $this->filterEventList($eventList);
