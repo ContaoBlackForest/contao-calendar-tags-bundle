@@ -123,7 +123,7 @@ class ItemFilter
      */
     public function prepare(array $eventList, array $calendarList, $startDate, $endDate, Events $events)
     {
-        if (!('contao_frontend' === $this->requestStack->getCurrentRequest()->get('_route'))
+        if (!('frontend' === $this->requestStack->getCurrentRequest()->get('_scope'))
             || !('eventlist' === $events->type)
             || (!$events->calendarEventsTagsPreFilter && !$events->calendarEventsTagsFilter)
             || (!$this->input->get('filterTag') && !$events->calendarEventsTagsPreFilter)
@@ -138,7 +138,7 @@ class ItemFilter
 
         $this->internalEventIds = $this->matchEventIdsByFilter($events->calendarEventsTagsPreFilter);
         if (!\count($this->internalEventIds)) {
-            return $eventList;
+            return [];
         }
 
         $this->filterEventList($eventList);
