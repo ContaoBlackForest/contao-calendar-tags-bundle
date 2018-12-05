@@ -89,7 +89,7 @@ class AddFilterMenu
      */
     public function handle(Template $template)
     {
-        if (!('contao_frontend' === $this->requestStack->getCurrentRequest()->get('_route'))
+        if (!('frontend' === $this->requestStack->getCurrentRequest()->get('_scope'))
             || !('eventlist' === $template->type)
             || !$template->calendarEventsTagsFilter
         ) {
