@@ -102,7 +102,7 @@ class PrepareTagCollection
      */
     public function prepare(array $eventList, array $calendarList, $startDate, $endDate, Events $events)
     {
-        if (!('contao_frontend' === $this->requestStack->getCurrentRequest()->get('_route'))
+        if (!('frontend' === $this->requestStack->getCurrentRequest()->get('_scope'))
             || !('eventlist' === $events->type)
             || (!$events->calendarEventsTagsPreFilter && !$events->calendarEventsTagsFilter)
         ) {
