@@ -98,11 +98,21 @@ class PreFilterOptions
         $queryBuilder
             ->select('t.*')
             ->from('tl_calendar_events_tags', 't')
-            ->innerJoin('t', 'tl_calendar_events_tags_relation', 'r', 'r.tag = t.id')
-            ->where($queryBuilder->expr()->in('r.calendar', ':calendarList'))
-            ->setParameter(':calendarList', \array_map('\intval', $calendarList), Connection::PARAM_STR_ARRAY)
             ->orderBy('t.title')
             ->groupBy('t.id');
+
+        foreach ($calendarList as $value) {
+            if (!($where = $queryBuilder->getQueryPart('where'))) {
+                $queryBuilder->where($queryBuilder->expr()->like('t.calendar', ':calendarLike'))
+                    ->setParameter(':calendarLike', '%"' . $value . '"%');
+
+                continue;
+            }
+
+            $likeParameter = ':calendarLike' . $where->count();
+            $queryBuilder->orWhere($queryBuilder->expr()->like('t.calendar', $likeParameter))
+                ->setParameter($likeParameter, '%"' . $value . '"%');
+        }
 
         $statement = $queryBuilder->execute();
         if (!$statement->rowCount()) {
