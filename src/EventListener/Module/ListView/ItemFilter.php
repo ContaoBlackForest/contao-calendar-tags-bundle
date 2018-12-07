@@ -132,7 +132,7 @@ class ItemFilter
         }
 
         $tagList = $this->sessionBag->get(Enum::SESSION_TAG_COLLECTION);
-        if (!$tagList) {
+        if ($this->determineRedirect($eventList, $tagList)) {
             $this->redirectWithoutFilter();
         }
 
@@ -236,6 +236,19 @@ class ItemFilter
 
             unset($eventList[$item]);
         }
+    }
+
+    /**
+     * Determine for redirect.
+     *
+     * @param array $eventList The event list.
+     * @param mixed $tagList   The tag list.
+     *
+     * @return bool
+     */
+    private function determineRedirect(array $eventList, $tagList)
+    {
+        return !$tagList && \count($eventList);
     }
 
     /**
