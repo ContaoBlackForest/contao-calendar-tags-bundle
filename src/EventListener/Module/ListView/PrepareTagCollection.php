@@ -153,6 +153,10 @@ class PrepareTagCollection
      */
     private function fetchAllTags(array $calendarList)
     {
+        if (!$this->internalEventList) {
+            return [];
+        }
+
         $queryBuilder = $this->connection->createQueryBuilder();
         $queryBuilder
             ->select('t.*')
