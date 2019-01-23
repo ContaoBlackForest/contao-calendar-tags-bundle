@@ -12,6 +12,7 @@
  *
  * @package    contaoblackforest/contao-calendar-tags-bundle
  * @author     Sven Baumann <baumann.sv@gmail.com>
+ * @author     Alex Wuttke <alw@qbus.de>
  * @copyright  2014-2018 The Contao Blackforest team.
  * @license    https://github.com/contaoblackforest/contao-calendar-tags-bundle/blob/master/LICENSE LGPL-3.0
  * @filesource
@@ -127,6 +128,7 @@ class ItemFilter
             || !('eventlist' === $events->type)
             || (!$events->calendarEventsTagsPreFilter && !$events->calendarEventsTagsFilter)
             || (!$this->input->get('filterTag') && !$events->calendarEventsTagsPreFilter)
+            || ('all' === $this->input->get('filterTag') && !$events->calendarEventsTagsPreFilter)
         ) {
             return $eventList;
         }
