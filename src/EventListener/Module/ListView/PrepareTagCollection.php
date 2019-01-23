@@ -12,6 +12,7 @@
  *
  * @package    contaoblackforest/contao-calendar-tags-bundle
  * @author     Sven Baumann <baumann.sv@gmail.com>
+ * @author     Alex Wuttke <alw@qbus.de>
  * @copyright  2014-2018 The Contao Blackforest team.
  * @license    https://github.com/contaoblackforest/contao-calendar-tags-bundle/blob/master/LICENSE LGPL-3.0
  * @filesource
@@ -164,6 +165,7 @@ class PrepareTagCollection
             ->innerJoin('t', 'tl_calendar_events_tags_relation', 'r', 'r.tag = t.id')
             ->where($queryBuilder->expr()->in('r.calendar', ':calendarList'))
             ->where($queryBuilder->expr()->in('r.calendarEvents', ':calendarEvents'))
+            ->groupBy('t.id')
             ->setParameter(':calendarList', \array_map('\intval', $calendarList), Connection::PARAM_STR_ARRAY)
             ->setParameter(
                 ':calendarEvents',
